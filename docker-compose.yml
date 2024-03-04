@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  llm-postgres:
+    image: postgres:latest
+    env_file:
+      - .env
+    container_name: $POSTGRES_HOST
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend-app:
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    depends_on:
+      - llm-postgres
+    env_file:
+      - .env
+    ports:
+      - '8000:8000'
+    command: sh -c "./entrypoint.sh"
+    restart: always
+
+  client-app:
+    build:
+      context: client/
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - backend-app
+    ports:
+      - '3000:3000'
+    command: ['npm', 'start']
+    restart: always
+
+volumes:
+  pg_data:
