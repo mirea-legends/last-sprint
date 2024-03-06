@@ -9,7 +9,6 @@ class BaseLLM():
 
         self.prompt_templates = {
         "memory": "By considering below input memories from me, answer the question if its provided in memory, else just answer without memory:\n`{text}`\nMEMORY CHUNKS:\n{context}",
-        "search": "You have been given access to the Internet. By considering below search results, summarize the information if its provided in search result, else just answer without search results:\n`{text}`\nSEARCH RESULTS:\n{context}"
         }
 
     def generate(self, request: str, streaming: bool) -> Any:
