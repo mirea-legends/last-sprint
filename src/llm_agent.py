@@ -33,8 +33,8 @@ class LLMAgent():
         return response
 
     @logging(enable_logging, message = "[Querying memory]")
-    def memory_response(self, request):
-        memory_queries_data = self.chroma.query(request, n_results = self.db_n_results, return_text = False)
+    def memory_response(self, request, collection_name = "default"):
+        memory_queries_data = self.chroma.query(request, n_results = self.db_n_results, return_text = False, collection_name = collection_name)
         memory_queries = memory_queries_data['documents'][0]
         memory_queries_distances = memory_queries_data['distances'][0]
 

@@ -8,25 +8,28 @@ from embedder import BaseEmbedder
 
 
 class ChromaClient():
-    def __init__(self, host, port, collection_name,  embedder: BaseEmbedder = None):
+    def __init__(self, host, port,  embedder: BaseEmbedder = None):
         self.embedder = embedder
         self.client = chromadb.HttpClient(host=host, port=port)
-        self.collection = self.client.get_or_create_collection(name = collection_name, embedding_function = self.embedder)
+        
 
-    def add(self, text, metadata = {}):
+    def add(self, text, collection_name = 'default', metadata = {}):
+        collection = self.client.get_or_create_collection(name = collection_name, embedding_function = self.embedder)
         metadata['timestamp'] = str(datetime.datetime.now())
 
-        self.collection.add(
+        collection.add(
             documents = [text],
             metadatas = [metadata],
             ids = [str(uuid.uuid4())]
         )
 
-    def delete(self, id):
-        self.collection.delete(id)
+    def delete(self, id, collection_name = 'default'):
+        collection = self.client.get_or_create_collection(name = collection_name, embedding_function = self.embedder)
+        collection.delete(id)
 
-    def query(self, query, n_results, return_text = True):
-        query = self.collection.query(
+    def query(self, query, n_results, return_text = True, collection_name = 'default'):
+        collection = self.client.get_or_create_collection(name = collection_name, embedding_function = self.embedder)
+        query = collection.query(
             query_texts = query,
             n_results = n_results,
         )

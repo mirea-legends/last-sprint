@@ -13,8 +13,7 @@ llm = LlamaCPPLLM('models/mistral-7b-instruct-v0.2.Q4_K_M.gguf')
 embedder = HFEmbedder()
 
 chroma_client = ChromaClient(
-    host='chromadb', port=8000,
-    collection_name="memory", 
+    host='chromadb', port=8000, 
     embedder = embedder
 )
 
@@ -39,8 +38,9 @@ def response(
 @app.post("/memory_response")
 def memory_response(
     prompt: str = "",
+    collection_name: str = "default",
 ):
-    generated_text_response = llm_agent.memory_response(prompt)
+    generated_text_response = llm_agent.memory_response(prompt, collection_name)
 
     generated_text = generated_text_response['choices'][0]['text']
 
@@ -51,16 +51,18 @@ def memory_response(
 @app.post("/add_memory")
 def add_memory(
     text: str = "",
+    collection_name: str = "default",
 ):
-    chroma_client.add(text) if text != "" else None
+    chroma_client.add(text, collection_name) if text != "" else None
 
     return "OK"
 
 @app.post("/delete_memory")
 def delete_memory(
     id: str = "",
+    collection_name: str = "default",
 ):
-    chroma_client.delete(id) if id != "" else None
+    chroma_client.delete(id, collection_name) if id != "" else None
 
     return "OK"
 
@@ -69,6 +71,7 @@ def delete_memory(
 def query_memory(
     query: str = "",
     n_results: int = 3,
-    return_text: bool = True
+    return_text: bool = True,
+    collection_name: str = "default",
 ):
-    return chroma_client.query(query, n_results, return_text)
+    return chroma_client.query(query, n_results, return_text, collection_name)
