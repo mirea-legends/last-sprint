@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  chromadb:
+    image: chromadb/chroma:latest
+    restart: always
+    volumes:
+      - index_data:/chroma/.chroma/index # doesnt work
+    ports:
+      - 8000:8000
+
+  llm-rag:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    stdin_open: true # interactive, to use terminal in `chat.py`  (tmp)
+    tty: true  # interactive, to use terminal in `chat.py`  (tmp)
+    depends_on:
+      - chromadb
+    env_file:
+      - .env
+    volumes:
+      - ./models/GPTS:/app/models # LLM (from outside model to container)
+      - ./hf-models:/root/.cache/huggingface # HF Embedder or other stuff (from container cache to outside) # doesnt work
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: always
+
+volumes:
+  index_data:

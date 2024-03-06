@@ -1,6 +1,6 @@
 from llm import BaseLLM
 from summarizer import Summarizer
-from query_db import CollectionOperator
+from chroma_client import CollectionOperator
 
 
 from utils import logging

@@ -1,5 +1,5 @@
 from typing import List, Optional, Any
-from gpt4all import GPT4All
+# from gpt4all import GPT4All
 from llama_cpp import Llama
 
 class BaseLLM():
@@ -27,14 +27,14 @@ class BaseLLM():
         
         return self.generate(self.chat_prompt_template.format(prompt = queries),  streaming = self.streaming)
 
-class GPT4AllLLM(BaseLLM):
-    def __init__(self, model_name: Optional[str] = None, model_path: Optional[str] = None) -> None:
-        super().__init__(model_name, model_path)
+# class GPT4AllLLM(BaseLLM):
+#     def __init__(self, model_name: Optional[str] = None, model_path: Optional[str] = None) -> None:
+#         super().__init__(model_name, model_path)
         
-        self.gpt = GPT4All(model_name = model_name, model_path = model_path, n_ctx=8192, verbose=True)
+#         self.gpt = GPT4All(model_name = model_name, model_path = model_path, n_ctx=8192, verbose=True)
 
-    def generate(self, request: str, streaming: bool) -> Any:
-        return self.gpt.generate(prompt = request, max_tokens=1024, streaming = streaming)
+#     def generate(self, request: str, streaming: bool) -> Any:
+#         return self.gpt.generate(prompt = request, max_tokens=1024, streaming = streaming)
 
 class LlamaCPPLLM(BaseLLM):
     def __init__(self, model_name: Optional[str] = None) -> None:

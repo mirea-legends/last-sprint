@@ -2,16 +2,15 @@ import chromadb
 import uuid
 import datetime
 from embedder import BaseEmbedder, HFEmbedder
-from dotenv import dotenv_values
+# from dotenv import dotenv_values
 
-env = dotenv_values(".env")
-DB_PATH = env["DB_PATH"]
+# env = dotenv_values(".env")
 
 
 class CollectionOperator():
-    def __init__(self, collection_name, db_path = DB_PATH, embedder: BaseEmbedder = None):
+    def __init__(self, collection_name,  embedder: BaseEmbedder = None):
         self.embedder = embedder
-        self.client = chromadb.PersistentClient(path = db_path)
+        self.client = chromadb.HttpClient(host='chromadb', port=8000) # `chromadb` IS THE SERVER IN DOCKER COMPOSE
         self.collection = self.client.get_or_create_collection(name = collection_name, embedding_function = self.embedder)
 
     def add(self, text, metadata = {}):

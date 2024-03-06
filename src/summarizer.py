@@ -2,10 +2,10 @@ import os
 import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from transformers import pipeline
-from dotenv import dotenv_values
+# from dotenv import dotenv_values
 
-env = dotenv_values(".env")
-os.environ['HUGGINGFACE_HUB_CACHE'] = env['HUGGINGFACE_HUB_CACHE']
+# env = dotenv_values(".env")
+# os.environ['HUGGINGFACE_HUB_CACHE'] = env['HUGGINGFACE_HUB_CACHE']
 
 # checkpoint = "t5-small"
 # checkpoint = "google/mt5-small"
