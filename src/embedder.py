@@ -4,12 +4,6 @@ import os
 import numpy as np
 from transformers import AutoModel, AutoTokenizer
 from chromadb import EmbeddingFunction
-# from gpt4all import Embed4All
-# from dotenv import dotenv_values
-
-# env = dotenv_values(".env")
-# os.environ['HUGGINGFACE_HUB_CACHE'] = env['HUGGINGFACE_HUB_CACHE']
-
 
 
 class BaseEmbedder(EmbeddingFunction):
@@ -21,21 +15,6 @@ class BaseEmbedder(EmbeddingFunction):
 
     def __call__(self, input):
         return self.get_embeddings(input)
-
-
-# class GPT4AllEmbedder(BaseEmbedder):
-#     def __init__(self):
-#         self.embedder = Embed4All() # default: all-MiniLM-L6-v2
-
-#     def get_embeddings(self, texts):
-#         if type(texts) == str:
-#             texts = [texts]
-        
-#         embeddings = []
-#         for text in texts:
-#             embeddings.append(self.embedder.embed(text))
-
-#         return embeddings
 
 
 # https://huggingface.co/princeton-nlp/sup-simcse-roberta-large

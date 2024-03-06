@@ -163,5 +163,6 @@ cython_debug/
 db/
 models/
 hf-models/
+chroma-data/
 test.py
 .google-cookie
