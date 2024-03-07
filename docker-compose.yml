@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+
+  webui:
+    build:
+      context: ./
+      dockerfile: webui.Dockerfile
+    restart: always
+    ports:
+      - 7860:7860
+    depends_on:
+      - llm-rag
+
   chromadb:
     image: chromadb/chroma:latest
     restart: always
@@ -13,11 +24,12 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    depends_on:
-      - chromadb
+    # depends_on:
+    #   - chromadb
     env_file:
       - .env
     volumes:
+      - ./.env:/app/.env
       - ./models/GPTS:/app/models # LLM (from outside model to container)
       - ./hf-models:/root/.cache/huggingface # HF Embedder or other stuff (from container cache to outside) # doesnt work
     ports:

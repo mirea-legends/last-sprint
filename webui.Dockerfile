@@ -1,6 +1,8 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10.13-bullseye
+FROM python:3.9-slim
 
+ARG GRADIO_SERVER_PORT=7860
+ENV GRADIO_SERVER_PORT=${GRADIO_SERVER_PORT}
 # RUN apt-get update && apt-get install -y libc6
 
 # Set the working directory in the container
@@ -8,19 +10,17 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 
-COPY requirements.txt .
-
 # Install any needed dependencies specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir gradio
 
 # Make port 80 available to the world outside this container
-EXPOSE 9000
+EXPOSE 7860
 
 # Define environment variable
 # ENV NAME World
-COPY .env /app/.env
-COPY src /app
-COPY models /app/models
+
+COPY src/webui.py /app/webui.py
+
 
 # Run app.py when the container launches
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000"]
+CMD ["python", "webui.py"]
