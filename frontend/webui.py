@@ -10,7 +10,7 @@ def memory_response(message, collection_name):
     response = requests.post(url, json={"prompt": message, "collection_name": collection_name}, headers=headers)
 
     if response.status_code == 200:
-        response = response.text[1:-1]
+        response = response.text[1:-1].replace("\\n\\n","\n\n").replace("\\n","\n")
     else:
         response = f"Error: {response.status_code}"
 
@@ -22,14 +22,14 @@ def response(message):
     response = requests.post(url, json={"prompt": message}, headers=headers)
 
     if response.status_code == 200:
-        response = response.text[1:-1]
+        response = response.text[1:-1].replace("\\n\\n","\n\n").replace("\\n","\n")
     else:
         response = f"Error: {response.status_code}"
 
     return response
 
-def respond(message, chat_history):
-    bot_message = memory_response(message, "default")
+def respond(message, collection_choice, chat_history):
+    bot_message = memory_response(message, collection_choice)
     # bot_message = response(message)
     chat_history.append((message, bot_message))
     # time.sleep(2)
@@ -64,9 +64,9 @@ with gr.Blocks() as demo:
                 clear_btn = gr.ClearButton([msg, chatbot])
                 submit_btn = gr.Button(value="Send")
 
-            msg.submit(respond, [msg, chatbot], [msg, chatbot])
+            msg.submit(respond, [msg, collection_choice, chatbot], [msg, chatbot])
 
-    submit_btn.click(respond, [msg, chatbot], [msg, chatbot])
+    submit_btn.click(respond, [msg, collection_choice, chatbot], [msg, chatbot])
 
     for button in buttons:
         button.click(choose_collection, [button], [collection_choice])

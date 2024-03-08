@@ -16,7 +16,10 @@ class BaseLLM():
         self.streaming = False
 
         self.prompt_templates = {
-        "memory": "By considering below input memories from me, answer the question if its provided in memory, else just answer without memory:\n`{text}`\nMEMORY CHUNKS:\n{context}",
+        "memory_en": "By considering below input memories from me, answer the question if its provided in memory, else just answer without memory:\n`{text}`\nMEMORY CHUNKS:\n{context}",
+        "memory_ru": "Учитывая следующие входные данные из ячеек памяти, ответьте на вопрос, если он предоставлен в ячейках памяти, в противном случае просто ответьте без использования ячейек памяти:\n`{text}`\nЯчейки памяти:\n{context}",
+        "memory_delimiter_en": "MEMORY CHUNK {i}: {query}\n",
+        "memory_delimiter_ru": "ЯЧЕЙКА ПАМЯТИ {i}: {query}\n",
         }
 
     def generate(self, request: str, streaming: bool) -> Any:
@@ -28,9 +31,9 @@ class BaseLLM():
     def memory_response(self, request: str, memory_queries: List[str]) -> Any:
         context = ""
         for i, query in enumerate(memory_queries):
-            context += f"MEMORY CHUNK {i}: {query}\n"
+            context += self.prompt_templates['memory_delimiter_ru'].format(i = i, query = query)
 
-        queries = self.prompt_templates['memory'].format(text = request, context = context)
+        queries = self.prompt_templates['memory_ru'].format(text = request, context = context)
         
         return self.generate(self.chat_prompt_template.format(prompt = queries),  streaming = self.streaming)
 
@@ -124,8 +127,8 @@ class GigaChatLLM(BaseLLM):
     def memory_response(self, request: str, memory_queries: List[str]) -> Any:
         context = ""
         for i, query in enumerate(memory_queries):
-            context += f"MEMORY CHUNK {i}: {query}\n"
+            context += self.prompt_templates['memory_delimiter_ru'].format(i = i, query = query)
 
-        request = self.prompt_templates['memory'].format(text = request, context = context)
+        request = self.prompt_templates['memory_ru'].format(text = request, context = context)
         
         return self.generate(request)
