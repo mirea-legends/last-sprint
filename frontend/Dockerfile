@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 ARG GRADIO_SERVER_PORT=7860
 ENV GRADIO_SERVER_PORT=${GRADIO_SERVER_PORT}
@@ -16,10 +16,8 @@ RUN pip install --no-cache-dir gradio
 # Make port 80 available to the world outside this container
 EXPOSE 7860
 
-# Define environment variable
-# ENV NAME World
 
-COPY src/webui.py /app/webui.py
+COPY frontend/webui.py /app/webui.py
 
 
 # Run app.py when the container launches

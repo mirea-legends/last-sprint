@@ -1,6 +1,8 @@
 # Use an official Python runtime as a parent image
-FROM python:3.10.13-bullseye
+FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-runtime
 
+RUN apt update && \
+    apt install --no-install-recommends -y build-essential software-properties-common
 # RUN apt-get update && apt-get install -y libc6
 
 # Set the working directory in the container
@@ -19,7 +21,7 @@ EXPOSE 9000
 # Define environment variable
 # ENV NAME World
 COPY .env /app/.env
-COPY src /app
+COPY backend/src /app
 COPY models /app/models
 
 # Run app.py when the container launches

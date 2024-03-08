@@ -5,7 +5,7 @@ services:
   webui:
     build:
       context: ./
-      dockerfile: webui.Dockerfile
+      dockerfile: frontend/Dockerfile
     restart: always
     ports:
       - 7860:7860
@@ -23,7 +23,7 @@ services:
   llm-rag:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: backend/Dockerfile
     # depends_on:
     #   - chromadb
     env_file:

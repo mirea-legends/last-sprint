@@ -7,17 +7,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-gpt4all = "^2.2.1.post1"
 llama-cpp-python = "^0.2.53"
-bs4 = "^0.0.2"
-torch = "^2.2.1"
 transformers = "^4.38.1"
 tokenizers = "^0.15.2"
 termcolor = "^2.4.0"
 chromadb-client = "^0.4.25.dev0"
 fastapi = "^0.110.0"
 uvicorn = "^0.27.1"
-gradio = "^4.20.1"
 python-dotenv = "^1.0.1"
 
 
