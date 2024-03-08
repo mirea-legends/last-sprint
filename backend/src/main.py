@@ -41,8 +41,10 @@ def response(
 def memory_response(
     prompt: str = Body(default="Hello!", embed=True),
     collection_name: str = Body(default="default", embed=True),
+    n_results: int = Body(default=3, embed=True),
+    memory_access_threshold: float = Body(default=1.5, embed=True),
 ):
-    generated_text_response = llm_agent.memory_response(prompt, collection_name)
+    generated_text_response = llm_agent.memory_response(prompt, collection_name, n_results, memory_access_threshold)
 
     # generated_text = generated_text_response['choices'][0]['text'] # LlamaCPPLLM
     generated_text = generated_text_response

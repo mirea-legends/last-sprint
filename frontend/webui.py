@@ -4,10 +4,10 @@ import time
 import requests
 
 
-def memory_response(message, collection_name):
+def memory_response(message, collection_name, n_results = 3, memory_access_threshold = 1.5):
     url = "http://llm-rag:9000/memory_response" #localhost
     headers = {'Content-Type': 'application/json'}
-    response = requests.post(url, json={"prompt": message, "collection_name": collection_name}, headers=headers)
+    response = requests.post(url, json={"prompt": message, "collection_name": collection_name, "n_results": n_results, "memory_access_threshold": memory_access_threshold}, headers=headers)
 
     if response.status_code == 200:
         response = response.text[1:-1].replace("\\n\\n","\n\n").replace("\\n","\n")
@@ -28,8 +28,8 @@ def response(message):
 
     return response
 
-def respond(message, collection_choice, chat_history):
-    bot_message = memory_response(message, collection_choice)
+def respond(message, collection_choice, n_results, memory_access_threshold, chat_history):
+    bot_message = memory_response(message, collection_choice, n_results, memory_access_threshold)
     # bot_message = response(message)
     chat_history.append((message, bot_message))
     # time.sleep(2)
@@ -63,10 +63,12 @@ with gr.Blocks() as demo:
             with gr.Row():
                 clear_btn = gr.ClearButton([msg, chatbot])
                 submit_btn = gr.Button(value="Send")
+                n_results_slider = gr.Slider(minimum=1, maximum=10, value=3, step=1, label="N results")
+                memory_access_threshold_slider = gr.Slider(minimum=0.0, maximum=2.0, value=1.5, step=0.1, label="Memory access threshold")
 
-            msg.submit(respond, [msg, collection_choice, chatbot], [msg, chatbot])
+            msg.submit(respond, [msg, collection_choice, n_results_slider, memory_access_threshold_slider, chatbot], [msg, chatbot])
 
-    submit_btn.click(respond, [msg, collection_choice, chatbot], [msg, chatbot])
+    submit_btn.click(respond, [msg, collection_choice, n_results_slider, memory_access_threshold_slider, chatbot], [msg, chatbot])
 
     for button in buttons:
         button.click(choose_collection, [button], [collection_choice])

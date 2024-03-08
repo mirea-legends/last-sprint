@@ -15,14 +15,10 @@ class LLMAgent():
         llm: BaseLLM = None, 
         chroma: ChromaClient = None, 
     ) -> None:
-
         self.llm = llm
         self.chroma = chroma
-        self.memory_access_threshold = 1.5
         # self.similarity_threshold = 0.5 # [0; 1]
-        self.db_n_results = 3
-        self.se_n_results = 3
-       
+
 
     @logging(enable_logging, message = "[Adding to memory]")
     def add(self, request):
@@ -33,8 +29,8 @@ class LLMAgent():
         return response
 
     @logging(enable_logging, message = "[Querying memory]")
-    def memory_response(self, request, collection_name = "default"):
-        memory_queries_data = self.chroma.query(request, n_results = self.db_n_results, return_text = False, collection_name = collection_name)
+    def memory_response(self, request, collection_name = "default", n_results = 3, memory_access_threshold = 1.5):
+        memory_queries_data = self.chroma.query(request, n_results = n_results, return_text = False, collection_name = collection_name)
         memory_queries = memory_queries_data['documents'][0]
         memory_queries_distances = memory_queries_data['distances'][0]
 
@@ -42,7 +38,7 @@ class LLMAgent():
 
         for query, distance in list(zip(memory_queries, memory_queries_distances)):
             # print(f"Query: {query}, Distance: {distance}")
-            if distance < self.memory_access_threshold:
+            if distance < memory_access_threshold:
             # if (1 - distance) >= self.similarity_threshold:
                 acceptable_memory_queries.append(query)
 
