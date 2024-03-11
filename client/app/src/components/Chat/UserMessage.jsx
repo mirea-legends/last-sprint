@@ -1,0 +1,24 @@
+import ChatButton from './ChatButton'
+
+function UserMessage({ text, iconSrc }) {
+	return (
+		<>
+			<div className='chat-user-message mt-2'>
+				<div className='user-message-text bg-zinc-950 rounded-lg text-white p-5'>
+					<p className='break-words'>{text}</p>
+				</div>
+				<div className='user-message-actions flex font-sans items-center justify-between mt-2'>
+					<div className='llm-message-action-buttons flex items-center space-x-3 text-white'>
+						<p className='message-time text-gray-500'>Just now</p>
+						<ChatButton text={'Edit'}></ChatButton>
+					</div>
+					<div className='user-avatar w-16'>
+						<img src={iconSrc} alt='' className='icon rounded-lg'></img>
+					</div>
+				</div>
+			</div>
+		</>
+	)
+}
+
+export default UserMessage
