@@ -2,10 +2,6 @@ import chromadb
 import uuid
 import datetime
 from embedder import BaseEmbedder
-# from dotenv import dotenv_values
-
-# env = dotenv_values(".env")
-
 
 class ChromaClient():
     def __init__(self, host, port,  embedder: BaseEmbedder = None):

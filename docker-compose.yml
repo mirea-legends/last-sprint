@@ -31,7 +31,7 @@ services:
     volumes:
       - ./.env:/app/.env
       - ./models/GPTS:/app/models # LLM (from outside model to container)
-      - ./hf-models:/root/.cache/huggingface # HF Embedder or other stuff (from container cache to outside) # doesnt work
+      - ./hf-models:/root/.cache/huggingface
     ports:
       - 9000:9000
     deploy:
