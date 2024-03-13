@@ -1,4 +1,3 @@
-import Generator from '../../../helpers/Generator.js'
 import ChatsCollections from './ChatsCollections.jsx'
 import SidebarOptions from './SIdebarOptions.jsx'
 import ShortProfile from './ShortProfile.jsx'
@@ -15,8 +14,8 @@ function FunctionalSidebar() {
 			<hr className='h-px bg-zinc-700 border-0'></hr>
 			<ChatsCollections></ChatsCollections>
 			<ShortProfile
-				fullName={Generator.getString(50)}
-				email={Generator.getString(50)}
+				fullName={'Max Zotov'}
+				email={'zotov.max17@mail.ru'}
 			></ShortProfile>
 		</aside>
 	)
