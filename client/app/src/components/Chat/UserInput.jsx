@@ -14,10 +14,10 @@ function UserInput() {
 	}
 	return (
 		<>
-			<div className='user-input flex justify-between rounded bg-white'>
+			<div className='user-input flex justify-between rounded bg-gray-500 mt-5'>
 				<textarea
 					placeholder='Введите запрос'
-					className='w-full h-auto p-1 border-none active:border-none'
+					className='w-full h-auto p-1 border-none active:border-none bg-gray-500 rounded-l-lg'
 					value={text}
 					onChange={handleChange}
 					ref={textareaRef}

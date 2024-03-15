@@ -1,3 +1,4 @@
+import ReactTimeAgo from 'react-time-ago'
 import ChatButton from './ChatButton'
 import FeedbackButtons from './FeedbackButtons'
 
@@ -13,7 +14,11 @@ function LlmMessage({ text, iconSrc }) {
 						<img src={iconSrc} alt='' className='icon'></img>
 					</div>
 					<div className='llm-message-action-buttons flex items-center space-x-3 text-white'>
-						<p className='message-time text-gray-500'>Just now</p>
+						<ReactTimeAgo
+							className='text-gray-500'
+							date={new Date()}
+							locale='en-US'
+						></ReactTimeAgo>
 						<ChatButton text={'Copy'}></ChatButton>
 						<ChatButton text={'Regenerate response'}></ChatButton>
 						<FeedbackButtons></FeedbackButtons>
