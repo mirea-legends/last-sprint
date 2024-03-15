@@ -22,7 +22,7 @@ EXPOSE 9000
 # ENV NAME World
 COPY .env /app/.env
 COPY backend/src /app
-COPY models /app/models
+# COPY models /app/models # Uncomment this if you are using local quantized model
 
 # Run app.py when the container launches
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000"]

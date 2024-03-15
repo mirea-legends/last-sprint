@@ -50,7 +50,7 @@ with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column(scale=1):
             # First variant
-            collection_choice = gr.Textbox(label="Collection")
+            collection_choice = gr.Textbox(label="Collection", value=collections[0])
             buttons = [gr.Button(collection) for collection in collections]
 
             # Second variant

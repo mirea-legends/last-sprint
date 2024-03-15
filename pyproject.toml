@@ -15,6 +15,7 @@ chromadb-client = "^0.4.25.dev0"
 fastapi = "^0.110.0"
 uvicorn = "^0.27.1"
 python-dotenv = "^1.0.1"
+torch = "^2.2.1"
 
 
 [build-system]

@@ -24,23 +24,23 @@ services:
     build:
       context: ./
       dockerfile: backend/Dockerfile
-    # depends_on:
-    #   - chromadb
+    depends_on:
+      - chromadb
     env_file:
       - .env
     volumes:
       - ./.env:/app/.env
-      - ./models/GPTS:/app/models # LLM (from outside model to container)
+      # - ./models/GPTS:/app/models # LLM (from outside model to container) # Uncomment this if you are using local quantized model
       - ./hf-models:/root/.cache/huggingface
     ports:
       - 9000:9000
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+    # deploy: # Uncomment this if you have gpu
+      # resources:
+      #   reservations:
+      #     devices:
+      #       - driver: nvidia
+      #         count: 1
+      #         capabilities: [gpu]
     restart: always
 
 volumes:
