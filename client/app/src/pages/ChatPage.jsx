@@ -1,5 +1,5 @@
 import MainChat from '../components/Chat/MainChat'
-import FunctionalSidebar from '../components/FunctionalSidebar/FunctionalSidebar'
+import FunctionalSidebar from '../components/ChatFunctionalSidebar/FunctionalSidebar'
 
 function ChatPage() {
 	return (

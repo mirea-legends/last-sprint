@@ -17,7 +17,7 @@ function UserInput() {
 			<div className='user-input flex justify-between rounded bg-gray-500 mt-5'>
 				<textarea
 					placeholder='Введите запрос'
-					className='w-full h-auto p-1 border-none active:border-none bg-gray-500 rounded-l-lg'
+					className='w-full text-white h-auto p-1 border-none active:border-none bg-gray-500 rounded-l-lg'
 					value={text}
 					onChange={handleChange}
 					ref={textareaRef}
