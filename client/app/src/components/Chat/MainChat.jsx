@@ -8,11 +8,7 @@ function MainChat() {
 		<>
 			<main className='app-container rounded-lg bg-zinc-800 flex p-3 w-4/5'>
 				<div className='chat flex flex-col justify-between w-full lg:w-2/3'>
-					<FunctionalTitle
-						favoriteIconSrc={`${basePath}/star-01.svg`}
-						bookmarkIconSrc={`${basePath}/bookmark.svg`}
-						moreIconSrc={`${basePath}/dots-horizontal.svg`}
-					></FunctionalTitle>
+					<FunctionalTitle topicName={'Sport'}></FunctionalTitle>
 					<ChatContent></ChatContent>
 				</div>
 				<div className='h-full w-1 bg-zinc-700'></div>

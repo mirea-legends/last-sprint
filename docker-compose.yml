@@ -37,5 +37,11 @@ services:
     command: ['npm', 'run', 'dev']
     restart: always
 
+  llm-redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    restart: always
+
 volumes:
   pg_data:

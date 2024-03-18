@@ -1,22 +1,39 @@
-import Generator from '../../../helpers/Generator'
+import { useState } from 'react'
+import socket from '../../../api/socket'
 import LlmMessage from './LlmMessage'
 import UserInput from './UserInput'
 import UserMessage from './UserMessage'
 
 function ChatContent() {
 	const basePath = '../src/assets/'
+	const [messages, setMessages] = useState([])
+
+	socket.onmessage = data => {
+		setMessages(prevMessages => [...prevMessages, data])
+	}
 	return (
 		<>
 			<div className='chat-content p-3'>
-				<LlmMessage
-					text={Generator.getString(1024)}
-					iconSrc={`${basePath}/Avatar.svg`}
-				></LlmMessage>
-				<UserMessage
-					text={Generator.getString(1024)}
-					iconSrc={`${basePath}/image.png`}
-				></UserMessage>
-				<UserInput></UserInput>
+				{messages.map((message, index) => {
+					let current_message_data = JSON.parse(message.data)
+					if (current_message_data.message_belonging === 'LLM')
+						return (
+							<LlmMessage
+								key={index}
+								text={current_message_data.message}
+								iconSrc={`${basePath}/Avatar.svg`}
+							></LlmMessage>
+						)
+					else if (current_message_data.message_belonging === 'USER')
+						return (
+							<UserMessage
+								key={index}
+								text={current_message_data.message}
+								iconSrc={`${basePath}/image.png`}
+							></UserMessage>
+						)
+				})}
+				<UserInput setChatMessages={setMessages}></UserInput>
 			</div>
 		</>
 	)

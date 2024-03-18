@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import socket from '../../../api/socket'
 
-function UserInput() {
+function UserInput({ setChatMessages }) {
 	const [text, setText] = useState('')
 	const [height, setHeight] = useState('auto')
 	const textareaRef = useRef(null)
@@ -12,6 +13,16 @@ function UserInput() {
 	const handleChange = event => {
 		setText(event.target.value)
 	}
+
+	const handleSendMessage = () => {
+		const data = JSON.stringify({ message: text, message_belonging: 'USER' })
+		socket.send(data)
+		setChatMessages(prevMessages => [
+			...prevMessages,
+			new MessageEvent('message', { data: data }),
+		])
+	}
+
 	return (
 		<>
 			<div className='user-input flex justify-between rounded bg-gray-500 mt-5'>
@@ -23,7 +34,7 @@ function UserInput() {
 					ref={textareaRef}
 					style={{ height }}
 				></textarea>
-				<button className='p-1 rounded-lg'>
+				<button onClick={handleSendMessage} className='p-1 rounded-lg'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
 						fill='none'
