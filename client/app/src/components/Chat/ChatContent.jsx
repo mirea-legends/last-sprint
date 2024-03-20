@@ -15,7 +15,7 @@ function ChatContent() {
 		<>
 			<div className='chat-content p-3'>
 				{messages.map((message, index) => {
-					let current_message_data = JSON.parse(message.data)
+					const current_message_data = JSON.parse(message.data)
 					if (current_message_data.message_belonging === 'LLM')
 						return (
 							<LlmMessage

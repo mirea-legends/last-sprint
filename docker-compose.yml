@@ -11,12 +11,27 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
+  llm-backend:
+    build:
+      context: model-backend
+      dockerfile: Dockerfile
+    depends_on:
+      - chromadb
+    restart: always
+    env_file:
+      - ./model-backend/.env
+    volumes:
+      - ./hf-models:/root/.cache/huggingface
+    ports:
+      - '9000:9000'
+
   backend-app:
     build:
       context: backend/
       dockerfile: Dockerfile
     depends_on:
       - llm-postgres
+      - llm-backend
     env_file:
       - .env
     ports:
@@ -42,6 +57,14 @@ services:
     ports:
       - '6379:6379'
     restart: always
+
+  chromadb:
+    image: chromadb/chroma:latest
+    restart: always
+    volumes:
+      - ./chroma-data:/chroma/chroma
+    ports:
+      - 8000:8000
 
 volumes:
   pg_data:

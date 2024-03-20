@@ -2,7 +2,8 @@ from llm_agent import LLMAgent
 from llm import LlamaCPPLLM, GigaChatLLM
 from embedder import HFEmbedder
 from chroma_client import ChromaClient
-from fastapi import FastAPI, Body, WebSocket
+from fastapi import FastAPI, Body
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Optional, Union
 
 
@@ -17,6 +18,18 @@ llm_agent = LLMAgent(llm, chroma_client)
 
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:8080",  # Django сервер
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/response")

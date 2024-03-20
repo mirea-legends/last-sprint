@@ -17,6 +17,7 @@ function UserInput({ setChatMessages }) {
 	const handleSendMessage = () => {
 		const data = JSON.stringify({ message: text, message_belonging: 'USER' })
 		socket.send(data)
+		console.log(data)
 		setChatMessages(prevMessages => [
 			...prevMessages,
 			new MessageEvent('message', { data: data }),
