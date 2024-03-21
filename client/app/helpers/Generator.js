@@ -1,5 +1,4 @@
 class Generator {
-	constructor() {}
 	static getString(length) {
 		let alphabet = 'abcdefghijklmnopqrstuvwxyz '
 		let rs = ''

@@ -1,4 +1,9 @@
-function HistoryInfo({ messagesCount, messagesMaxCount, trashIconSrc }) {
+function HistoryInfo({
+	messagesCount,
+	setMessagesCount,
+	messagesMaxCount,
+	trashIconSrc,
+}) {
 	return (
 		<>
 			<div className='chat-history-sidebar-title flex flex-row justify-between p-3'>

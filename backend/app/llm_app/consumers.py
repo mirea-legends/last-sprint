@@ -14,15 +14,22 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         tmp_data = {
             "prompt": text_data_json["message"],
-            "collection_data": "default",
-            "n_results": 3,
-            "memory_access_threshold": 1.5,
+            "collection_name": "default",
+            "n_results": text_data_json["n_results"],
+            "memory_access_threshold": text_data_json["memory_access_threshold"],
         }
+        print(tmp_data)
         llm_answer = requests.post(
             "http://localhost:9000/memory_response/", json=tmp_data
         ).text
+        print(llm_answer)
 
-        llm_answer = llm_answer[1:-1].replace("\\n\\n", "\n\n").replace("\\n", "\n")
+        llm_answer = (
+            llm_answer[1:-1]
+            .replace("\\n\\n", "\n\n")
+            .replace("\\n", "\n")
+            .replace('\\"', '"')
+        )
 
         self.send(
             text_data=json.dumps({"message": llm_answer, "message_belonging": "LLM"})

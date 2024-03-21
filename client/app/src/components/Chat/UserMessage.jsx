@@ -19,7 +19,7 @@ function UserMessage({ text, iconSrc }) {
 						></ReactTimeAgo>
 						<ChatButton text={'Edit'}></ChatButton>
 					</div>
-					<div className='user-avatar w-16'>
+					<div className='user-avatar w-16 hidden sm:block'>
 						<img src={iconSrc} alt='' className='icon rounded-lg'></img>
 					</div>
 				</div>
