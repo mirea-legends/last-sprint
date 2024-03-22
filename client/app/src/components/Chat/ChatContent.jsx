@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import socket from '../../../api/socket'
 import NavButton from '../../../helpers/Structures'
+import ChatCheckBox from './ChatCheckBox/ChatCheckBox'
 import ChatInputRange from './ChatInputRange/ChatInputRange'
 import LlmMessage from './LlmMessage'
 import UserInput from './UserInput'
@@ -17,6 +18,7 @@ function ChatContent({
 	const [numbersOfResults, setNumbersOfResults] = useState(1)
 	const [memoryAccessThreshold, setMemoryAccessThreshold] = useState(0.1)
 	const [text, setText] = useState('')
+	const [isGigachat, setIsGigachat] = useState(false)
 
 	socket.onmessage = data => {
 		const preparedData = JSON.parse(data.data)
@@ -34,6 +36,7 @@ function ChatContent({
 				message_belonging: 'USER',
 				n_results: numbersOfResults,
 				memory_access_threshold: memoryAccessThreshold,
+				gigachat: isGigachat,
 			})
 			socket.send(data)
 			setMessages(prevMessages => [
@@ -99,6 +102,13 @@ function ChatContent({
 						parentValue={memoryAccessThreshold}
 						setParentValue={setMemoryAccessThreshold}
 					></ChatInputRange>
+				</div>
+				<div className='flex justify-center mt-5'>
+					<ChatCheckBox
+						checked={isGigachat}
+						setChacked={setIsGigachat}
+						title={'GigaChat в помощь'}
+					></ChatCheckBox>
 				</div>
 			</div>
 		</>

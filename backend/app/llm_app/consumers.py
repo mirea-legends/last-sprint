@@ -17,12 +17,12 @@ class ChatConsumer(WebsocketConsumer):
             "collection_name": "default",
             "n_results": text_data_json["n_results"],
             "memory_access_threshold": text_data_json["memory_access_threshold"],
+            "gigachat": text_data_json["gigachat"],
         }
         print(tmp_data)
         llm_answer = requests.post(
             "http://localhost:9000/memory_response/", json=tmp_data
         ).text
-        print(llm_answer)
 
         llm_answer = (
             llm_answer[1:-1]
