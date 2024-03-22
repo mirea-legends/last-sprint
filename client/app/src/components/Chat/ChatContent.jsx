@@ -18,7 +18,7 @@ function ChatContent({
 	const [numbersOfResults, setNumbersOfResults] = useState(1)
 	const [memoryAccessThreshold, setMemoryAccessThreshold] = useState(0.1)
 	const [text, setText] = useState('')
-	const [isGigachat, setIsGigachat] = useState(false)
+	const [useVectorDatabase, setUseVectorDatabase] = useState(false)
 
 	socket.onmessage = data => {
 		const preparedData = JSON.parse(data.data)
@@ -36,7 +36,7 @@ function ChatContent({
 				message_belonging: 'USER',
 				n_results: numbersOfResults,
 				memory_access_threshold: memoryAccessThreshold,
-				gigachat: isGigachat,
+				use_db: useVectorDatabase,
 			})
 			socket.send(data)
 			setMessages(prevMessages => [
@@ -105,9 +105,9 @@ function ChatContent({
 				</div>
 				<div className='flex justify-center mt-5'>
 					<ChatCheckBox
-						checked={isGigachat}
-						setChacked={setIsGigachat}
-						title={'GigaChat в помощь'}
+						checked={useVectorDatabase}
+						setChacked={setUseVectorDatabase}
+						title={'Использовать векторную БД'}
 					></ChatCheckBox>
 				</div>
 			</div>

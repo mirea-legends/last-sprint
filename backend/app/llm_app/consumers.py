@@ -17,7 +17,7 @@ class ChatConsumer(WebsocketConsumer):
             "collection_name": "default",
             "n_results": text_data_json["n_results"],
             "memory_access_threshold": text_data_json["memory_access_threshold"],
-            "gigachat": text_data_json["gigachat"],
+            "use_db": text_data_json["use_db"],
         }
         print(tmp_data)
         llm_answer = requests.post(
