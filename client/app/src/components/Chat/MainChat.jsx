@@ -3,7 +3,7 @@ import HistorySidebar from '../ChatHistorySidebar/HistorySidebar'
 import ChatContent from './ChatContent'
 import FunctionalTitle from './FunctionalTitle'
 
-function MainChat() {
+function MainChat({ topic, setTopic }) {
 	const basePath = '../src/assets/'
 	const [messagesCount, setMessagesCount] = useState(0)
 	const [messagesHistory, setMessagesHistory] = useState([])
@@ -11,7 +11,7 @@ function MainChat() {
 		<>
 			<main className='app-container rounded-lg bg-zinc-800 flex p-3 w-4/5'>
 				<div className='chat flex flex-col justify-between w-full lg:w-2/3'>
-					<FunctionalTitle topicName={'Sport'}></FunctionalTitle>
+					<FunctionalTitle topicName={topic}></FunctionalTitle>
 					<ChatContent
 						messagesCount={messagesCount}
 						setMessagesCount={setMessagesCount}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import socket from '../../../api/socket'
+import socket from '../../../api/instances'
 import NavButton from '../../../helpers/Structures'
 import ChatCheckBox from './ChatCheckBox/ChatCheckBox'
 import ChatInputRange from './ChatInputRange/ChatInputRange'

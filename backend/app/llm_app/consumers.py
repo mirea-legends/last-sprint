@@ -19,7 +19,8 @@ class ChatConsumer(WebsocketConsumer):
             "memory_access_threshold": text_data_json["memory_access_threshold"],
             "use_db": text_data_json["use_db"],
         }
-        print(tmp_data)
+
+        # Взаимодействие с LLM сервисом
         llm_answer = requests.post(
             "http://localhost:9000/memory_response/", json=tmp_data
         ).text
