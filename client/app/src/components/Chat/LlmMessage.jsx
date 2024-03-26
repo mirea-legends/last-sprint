@@ -5,6 +5,10 @@ import FeedbackButtons from './FeedbackButtons'
 
 function LlmMessage({ messageId, text, iconSrc }) {
 	const [messageTime, setMessageTime] = useState(new Date())
+
+	const copyClickHandler = () => {
+		navigator.clipboard.writeText(text)
+	}
 	return (
 		<>
 			<div className='chat-llm-message mt-2' id={messageId}>
@@ -19,10 +23,13 @@ function LlmMessage({ messageId, text, iconSrc }) {
 						<ReactTimeAgo
 							className='text-gray-500'
 							date={messageTime}
-							locale='en-US'
+							locale='ru-RU'
 						></ReactTimeAgo>
-						<ChatButton text={'Copy'}></ChatButton>
-						<ChatButton text={'Regenerate response'}></ChatButton>
+						<ChatButton
+							text={'Копировать'}
+							clickHandler={copyClickHandler}
+						></ChatButton>
+						{/* <ChatButton text={'Regenerate response'}></ChatButton> */}
 						<FeedbackButtons></FeedbackButtons>
 					</div>
 				</div>

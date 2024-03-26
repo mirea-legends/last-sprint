@@ -7,6 +7,7 @@ function HistorySidebar({
 	setMessagesCount,
 	messagesHistory,
 	setMessagesHistory,
+	clearChatHandler,
 }) {
 	const basePath = '../src/assets/'
 	return (
@@ -19,6 +20,7 @@ function HistorySidebar({
 						setMessagesCount={setMessagesCount}
 						messagesMaxCount={100}
 						trashIconSrc={`${basePath}/trash-03.svg`}
+						clearChatHandler={clearChatHandler}
 					></HistoryInfo>
 				</div>
 

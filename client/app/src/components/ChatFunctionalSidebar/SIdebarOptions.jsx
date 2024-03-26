@@ -5,24 +5,24 @@ function SidebarOptions() {
 	return (
 		<>
 			<div className='sidebar-options text-fuchsia-100 mt-5 p-3 flex flex-col'>
-				<FunctionalButton
+				{/* <FunctionalButton
 					text={'Chats'}
 					iconSrc={`${basePath}/chat-text.1 1.svg`}
-				></FunctionalButton>
-				<FunctionalButton
+				></FunctionalButton> */}
+				{/* <FunctionalButton
 					text={'Search'}
 					iconSrc={`${basePath}/search 1.svg`}
-				></FunctionalButton>
+				></FunctionalButton> */}
 				<FunctionalButton
-					text={'Manage Subscription'}
+					text={'Управление подпиской'}
 					iconSrc={`${basePath}/bank-card-check-ou-lc 1.svg`}
 				></FunctionalButton>
 				<FunctionalButton
-					text={'Updates & FAQ'}
+					text={'Помощь'}
 					iconSrc={`${basePath}/barcode.2 1.svg`}
 				></FunctionalButton>
 				<FunctionalButton
-					text={'Settings'}
+					text={'Настройки'}
 					iconSrc={`${basePath}/settings 1.svg`}
 				></FunctionalButton>
 			</div>

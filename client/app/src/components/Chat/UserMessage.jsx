@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import ReactTimeAgo from 'react-time-ago'
-import ChatButton from './ChatButton'
 
 function UserMessage({ text, iconSrc }) {
 	const [messageTime, setMessageTime] = useState(new Date())
@@ -15,9 +14,9 @@ function UserMessage({ text, iconSrc }) {
 						<ReactTimeAgo
 							className='text-gray-500'
 							date={messageTime}
-							locale='en-US'
+							locale='ru-RU'
 						></ReactTimeAgo>
-						<ChatButton text={'Edit'}></ChatButton>
+						{/* <ChatButton text={'Edit'}></ChatButton> */}
 					</div>
 					<div className='user-avatar w-16 hidden sm:block'>
 						<img src={iconSrc} alt='' className='icon rounded-lg'></img>

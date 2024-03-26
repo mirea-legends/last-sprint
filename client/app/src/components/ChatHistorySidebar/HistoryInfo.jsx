@@ -3,6 +3,7 @@ function HistoryInfo({
 	setMessagesCount,
 	messagesMaxCount,
 	trashIconSrc,
+	clearChatHandler,
 }) {
 	return (
 		<>
@@ -14,7 +15,7 @@ function HistoryInfo({
 					</p>
 				</div>
 				<div className='chat-history-info-delete'>
-					<button>
+					<button onClick={clearChatHandler}>
 						<img src={trashIconSrc} alt=''></img>
 					</button>
 				</div>

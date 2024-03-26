@@ -8,13 +8,15 @@ import UserInput from './UserInput'
 import UserMessage from './UserMessage'
 
 function ChatContent({
+	messages,
+	setMessages,
 	messagesCount,
 	setMessagesCount,
 	messagesHistory,
 	setMessagesHistory,
 }) {
 	const basePath = '../src/assets/'
-	const [messages, setMessages] = useState([])
+
 	const [numbersOfResults, setNumbersOfResults] = useState(1)
 	const [memoryAccessThreshold, setMemoryAccessThreshold] = useState(0.1)
 	const [text, setText] = useState('')

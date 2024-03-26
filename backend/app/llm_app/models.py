@@ -13,7 +13,10 @@ class Collection(models.Model):
         SubscriptionLevel,
         on_delete=models.CASCADE,
     )
-    icon = models.ImageField(upload_to="collections/icons")
+    icon = models.ImageField(
+        upload_to="collections/icons",
+        blank=True,
+    )
 
     def __str__(self) -> str:
         return f"{self.name} [Access level: {self.access_level.name}]"

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
 
-function ChatsCollections({ topic, setTopic }) {
+function ChatsCollections({ topic, setTopic, chatRender, setChatRender }) {
 	const [collections, setCollections] = useState([])
 	const [collectionStyleActive, setCollectionStyleActive] = useState(null)
 	const isMounted = useRef(false)
@@ -32,22 +32,24 @@ function ChatsCollections({ topic, setTopic }) {
 	return (
 		<>
 			<div
-				className='chats-collections mt-5 p-3 flex flex-col text-white'
+				className='chats-collections mt-5 p-3 flex flex-col text-white overflow-y-auto max-h-36'
 				role='group'
 			>
 				{collections.map(collection => {
 					return (
 						<button
-							className={`p-2 rounded cursor-pointer hover:bg-neutral-600 transition-colors duration-200 my-1 ${
+							className={`flex p-2 rounded cursor-pointer hover:bg-neutral-600 transition-colors duration-200 my-1 ${
 								collection.id === collectionStyleActive ? 'bg-zinc-700' : ''
 							}`}
 							key={collection.id}
 							onClick={() => {
 								setTopic(collection.name)
 								handleCollectionBtnClick(collection.id)
+								setChatRender(true)
 							}}
 						>
-							<div className='sidebar-options-content flex'>
+							<img className='icon mr-3 w-6' src={collection.icon}></img>
+							<div className='sidebar-options-content flex align-center'>
 								{collection.name}
 							</div>
 						</button>
